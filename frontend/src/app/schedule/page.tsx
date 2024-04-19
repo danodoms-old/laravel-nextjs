@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function SchedulePage() {
   const [selectedDate, setSelectedDate] = useState("");
@@ -69,47 +70,67 @@ export default function SchedulePage() {
     setDaySchedule(filteredSchedule);
   }
 
-  return (
-    <section className="flex flex-col h-dvh bg-base-100 p-4 gap-2">
-      <div className="flex flex-initial justify-center gap-2">
-        {DayName("SUN")}
-        {DayName("MON")}
-        {DayName("TUE")}
-        {DayName("WED")}
-        {DayName("THU")}
-        {DayName("FRI")}
-        {DayName("SAT")}
-      </div>
-      <div className="flex flex-auto flex-col bg-base-300 rounded-xl gap-2 p-2">
-        {daySchedule.map((subject) => (
-          <div
-            key={subject.name}
-            className="flex flex-initial bg-neutral rounded-md p-2"
-          >
-            <h3 className="flex-auto font-bold content-center p-2">
-              {subject.name}{" "}
-              <span className="font-normal ml-4">{subject.instructor}</span>
-            </h3>
-            {subject.days.map((session) => (
-              <div
-                key={session.start}
-                className="flex bg-base-200 gap-4 p-4 rounded-lg"
-              >
-                <p className="flex-auto">{session.start}</p>
-                <p className="flex-auto">{session.end}</p>
-              </div>
-            ))}
-          </div>
-        ))}
+  const weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-        <div className="flex-initial">
-          <a href="/schedule/create">
-            <div className="flex-auto bg-base-200 text-4xl p-2 rounded-full text-center font-normal">
-              +
-            </div>
-          </a>
-        </div>
-      </div>
+  return (
+    <section className="flex flex-col h-dvh p-4 gap-2">
+      <Tabs defaultValue="MON" className="flex flex-auto">
+        <TabsList className="flex flex-auto">
+          {weekDays.map((day) => (
+            <TabsTrigger key={day} value={day} className="flex text-xs">
+              {day}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {/* <TabsContent value="account">
+          Make changes to your account here.
+        </TabsContent>
+        <TabsContent value="password">Change your password here.</TabsContent> */}
+      </Tabs>
     </section>
   );
+
+  // return (
+  //   <section className="flex flex-col h-dvh bg-base-100 p-4 gap-2">
+  //     <div className="flex flex-initial justify-center gap-2">
+  //       {DayName("SUN")}
+  //       {DayName("MON")}
+  //       {DayName("TUE")}
+  //       {DayName("WED")}
+  //       {DayName("THU")}
+  //       {DayName("FRI")}
+  //       {DayName("SAT")}
+  //     </div>
+  //     <div className="flex flex-auto flex-col bg-base-300 rounded-xl gap-2 p-2">
+  //       {daySchedule.map((subject) => (
+  //         <div
+  //           key={subject.name}
+  //           className="flex flex-initial bg-neutral rounded-md p-2"
+  //         >
+  //           <h3 className="flex-auto font-bold content-center p-2">
+  //             {subject.name}{" "}
+  //             <span className="font-normal ml-4">{subject.instructor}</span>
+  //           </h3>
+  //           {subject.days.map((session) => (
+  //             <div
+  //               key={session.start}
+  //               className="flex bg-base-200 gap-4 p-4 rounded-lg"
+  //             >
+  //               <p className="flex-auto">{session.start}</p>
+  //               <p className="flex-auto">{session.end}</p>
+  //             </div>
+  //           ))}
+  //         </div>
+  //       ))}
+
+  //       <div className="flex-initial">
+  //         <a href="/schedule/create">
+  //           <div className="flex-auto bg-base-200 text-4xl p-2 rounded-full text-center font-normal">
+  //             +
+  //           </div>
+  //         </a>
+  //       </div>
+  //     </div>
+  //   </section>
+  // );
 }
