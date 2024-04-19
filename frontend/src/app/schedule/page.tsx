@@ -101,6 +101,14 @@ export default function SchedulePage() {
             ))}
           </div>
         ))}
+
+        <div className="flex-initial">
+          <a href="/schedule/create">
+            <div className="flex-auto bg-base-200 text-4xl p-2 rounded-full text-center font-normal">
+              +
+            </div>
+          </a>
+        </div>
       </div>
     </section>
   );
