@@ -3,7 +3,7 @@ import { ModeToggle } from "./ui/mode-toggle";
 
 export default function Navbar() {
   return (
-    <nav className="flex flex-auto bg-base p-4">
+    <nav className="flex flex-auto w-full fixed top-0 backdrop-blur border-b px-4 py-2">
       <div className="flex mr-auto gap-4">
         <p className="font-semibold text-sm content-center">/timesync.</p>
         <a
@@ -15,7 +15,7 @@ export default function Navbar() {
       </div>
 
       <div className="flex ml-auto gap-4">
-        <div className="flex ">
+        <div className="flex size-10">
           <ModeToggle />
         </div>
 

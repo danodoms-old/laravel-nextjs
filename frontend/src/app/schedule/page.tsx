@@ -1,6 +1,14 @@
 "use client";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function SchedulePage() {
   const [selectedDate, setSelectedDate] = useState("");
@@ -67,6 +75,8 @@ export default function SchedulePage() {
         days: subject.days.filter((d) => d.day === day),
       }))
       .filter((subject) => subject.days.length > 0);
+    console.log(day);
+    console.log("filteredSchedule ", filteredSchedule);
     setDaySchedule(filteredSchedule);
   }
 
@@ -74,19 +84,54 @@ export default function SchedulePage() {
 
   return (
     <section className="flex flex-col h-dvh p-4 gap-2">
-      <Tabs defaultValue="MON" className="flex flex-auto">
-        <TabsList className="flex flex-auto">
+      <Tabs defaultValue="MON" className="flex flex-initial">
+        <TabsList className=" flex flex-auto overflow-x-hidden">
           {weekDays.map((day) => (
-            <TabsTrigger key={day} value={day} className="flex text-xs">
-              {day}
-            </TabsTrigger>
+            <div key={day} onClick={() => handleDayClick(day)}>
+              <TabsTrigger key={day} value={day} className="flex text-xs">
+                {day}
+              </TabsTrigger>
+            </div>
           ))}
         </TabsList>
+
         {/* <TabsContent value="account">
           Make changes to your account here.
         </TabsContent>
         <TabsContent value="password">Change your password here.</TabsContent> */}
       </Tabs>
+
+      <div className="flex flex-col flex-auto gap-2">
+        {daySchedule.map((subject, index) => (
+          <Card className="flex flex-wrap flex-initial" key={index}>
+            <CardHeader className="flex-auto">
+              <CardTitle>{subject.name}</CardTitle>
+              <CardDescription>{subject.instructor}</CardDescription>
+            </CardHeader>
+            <div className="flex-auto p-5 gap-2 content-center text-center">
+              <div className="flex-auto bg-secondary text-md rounded p-1">
+                {subject.days[0].start}
+              </div>
+              <div className="flex-auto bg-secondary text-md rounded p-1">
+                {subject.days[0].end}
+              </div>
+            </div>
+
+            {/* <CardContent>
+            <p>Card Content</p>
+          </CardContent>
+          <CardFooter>
+            <p>Card Footer</p>
+          </CardFooter> */}
+          </Card>
+        ))}
+
+        <a href="/schedule/create">
+          <div className="p-2 text-3xl font-semibold text-center content-center">
+            +
+          </div>
+        </a>
+      </div>
     </section>
   );
 
